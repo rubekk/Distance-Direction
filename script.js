@@ -28,10 +28,9 @@ const findDirection = (lat1, lon1, lat2, lon2) => {
       Math.cos(degToRad(lon2 - lon1));
   return (Math.atan2(x, y) * 180) / Math.PI;
 };
-
 // console.log(findDirection(28.3949, 84.1240,28.7041, 77.1025));
 
-var positionCurrent = {
+let positionCurrent = {
   lat: null,
   lng: null,
   hng: null,
@@ -39,7 +38,7 @@ var positionCurrent = {
 let defaultOrientation = "landscape";
 
 function getBrowserOrientation() {
-  var orientation;
+  let orientation;
   if (screen.orientation && screen.orientation.type) {
     orientation = screen.orientation.type;
   } else {
@@ -55,7 +54,8 @@ function onHeadingChange(event) {
     heading = event.webkitCompassHeading; //iOS non-standard
   }
 
-  var orientation = getBrowserOrientation();
+  let orientation = getBrowserOrientation();
+  document.querySelector(".orientation").innerText=`Orientation: ${orientation}`;
 
   if (typeof heading !== "undefined" && heading !== null) {
     var adjustment = 0;
@@ -81,8 +81,8 @@ function onHeadingChange(event) {
 
     positionCurrent.hng = heading + adjustment;
 
-    var phase =
-      positionCurrent.hng < 0 ? 360 + positionCurrent.hng : positionCurrent.hng;
+    var phase = positionCurrent.hng < 0 ? 360 + positionCurrent.hng : positionCurrent.hng;
+    document.querySelector(".phase").innerText=`Phase: ${phase}`;
 
     document.write(phase);
     // apply rotation to compass rose
@@ -97,6 +97,5 @@ function onHeadingChange(event) {
 }
 
 window.addEventListener("deviceorientation", (e) => {
-    document.write("Hello")
     onHeadingChange(e)
 });
