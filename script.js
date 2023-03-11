@@ -83,8 +83,6 @@ function onHeadingChange(event) {
 
     var phase = positionCurrent.hng < 0 ? 360 + positionCurrent.hng : positionCurrent.hng;
     document.querySelector(".phase").innerText=`Phase: ${phase}`;
-
-    document.write(phase);
     // apply rotation to compass rose
     //   if (typeof rose.style.transform !== "undefined") {
     //     rose.style.transform = "rotateZ(" + positionCurrent.hng + "deg)";
