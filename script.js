@@ -29,28 +29,20 @@ const findDirection = (lat1, lon1, lat2, lon2) => {
   return (Math.atan2(x, y) * 180) / Math.PI;
 };
 // console.log(findDirection(28.3949, 84.1240,28.7041, 77.1025));
+let direction=findDirection(28.3949, 84.1240,28.7041, 77.1025);
 
-let compass;
-const isIOS = !(
-  navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
-  navigator.userAgent.match(/AppleWebKit/)
-);
-
-function init() {
+const init=()=>{
   document.querySelector(".btn").addEventListener("click", startCompass);
 }
 
-function startCompass() {
-  console.log("aaa");
-
+const startCompass=()=>{
   window.addEventListener("deviceorientation", handler, true);
-  document.querySelector(".speed").innerText="Rubek";
 }
 
-function handler(e) {
-  compass = e.webkitCompassHeading || Math.abs(e.alpha - 360);
+const handler=e=>{
+  let compass = e.webkitCompassHeading || Math.abs(e.alpha - 360);
   document.querySelector("#compass").style.transform = `translate(-50%, -50%) rotate(${-compass}deg)`;
-  document.querySelector(".coords-heading").innerText=compass;
+  document.querySelector("#arrow").style.transform = `translate(-50%, -50%) rotate(${direction}deg)`;
 }
 
 init();
