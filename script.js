@@ -49,7 +49,7 @@ function startCompass() {
 
 function handler(e) {
   compass = e.webkitCompassHeading || Math.abs(e.alpha - 360);
-  // compassCircle.style.transform = `translate(-50%, -50%) rotate(${-compass}deg)`;
+  document.querySelector("#compass").style.transform = `translate(-50%, -50%) rotate(${-compass}deg)`;
   document.querySelector(".coords-heading").innerText=compass;
 }
 
