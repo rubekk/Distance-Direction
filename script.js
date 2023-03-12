@@ -37,7 +37,7 @@ const isIOS = !(
 );
 
 function init() {
-  startBtn.addEventListener("click", startCompass);
+  document.querySelector("button").addEventListener("click", startCompass);
 }
 
 function startCompass() {
