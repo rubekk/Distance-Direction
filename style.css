@@ -24,9 +24,6 @@ body{
     transform: translate(-50%,-50%);
     transform-origin: center;
 }
-#arrow{
-    transform: translate(-50%,-50%) scaleY(1.25);
-}
 .btn{
     padding: .5rem 1rem;
     font-size: 1.25rem;
