@@ -30,74 +30,36 @@ const findDirection = (lat1, lon1, lat2, lon2) => {
 };
 // console.log(findDirection(28.3949, 84.1240,28.7041, 77.1025));
 
-let positionCurrent = {
-  lat: null,
-  lng: null,
-  hng: null,
-};
-let defaultOrientation = "landscape";
+let compass;
+const isIOS = !(
+  navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
+  navigator.userAgent.match(/AppleWebKit/)
+);
 
-function getBrowserOrientation() {
-  let orientation;
-  if (screen.orientation && screen.orientation.type) {
-    orientation = screen.orientation.type;
-  } else {
-    orientation =
-      screen.orientation || screen.mozOrientation || screen.msOrientation;
-  }
-  return orientation;
+function init() {
+  startBtn.addEventListener("click", startCompass);
 }
 
-function onHeadingChange(event) {
-  var heading = event.alpha;
-  if (typeof event.webkitCompassHeading !== "undefined") {
-    heading = event.webkitCompassHeading; //iOS non-standard
-  }
-
-  let orientation = getBrowserOrientation();
-  document.querySelector(".orientation").innerText=`Orientation: ${orientation}`;
-
-  if (typeof heading !== "undefined" && heading !== null) {
-    var adjustment = 0;
-    if (defaultOrientation === "landscape") {
-      adjustment -= 90;
-    }
-
-    if (typeof orientation !== "undefined") {
-      var currentOrientation = orientation.split("-");
-
-      if (defaultOrientation !== currentOrientation[0]) {
-        if (defaultOrientation === "landscape") {
-          adjustment -= 270;
+function startCompass() {
+  if (isIOS) {
+    DeviceOrientationEvent.requestPermission()
+      .then((response) => {
+        if (response === "granted") {
+          window.addEventListener("deviceorientation", handler, true);
         } else {
-          adjustment -= 90;
+          alert("has to be allowed!");
         }
-      }
-
-      if (currentOrientation[1] === "secondary") {
-        adjustment -= 180;
-      }
-    }
-
-    positionCurrent.hng = heading + adjustment;
-
-    var phase = positionCurrent.hng < 0 ? 360 + positionCurrent.hng : positionCurrent.hng;
-    document.querySelector(".phase").innerText=`Phase: ${phase}`;
-    document.querySelector(".alpha").innerText=`Alpha: ${event.alpha}`;
-    document.querySelector(".beta").innerText=`Beta: ${event.beta}`;
-    document.querySelector(".gamma").innerText=`Gamma: ${event.gamma}`;
-
-    // apply rotation to compass rose
-    //   if (typeof rose.style.transform !== "undefined") {
-    //     rose.style.transform = "rotateZ(" + positionCurrent.hng + "deg)";
-    //   } else if (typeof rose.style.webkitTransform !== "undefined") {
-    //     rose.style.webkitTransform = "rotateZ(" + positionCurrent.hng + "deg)";
-    //   }
+      })
+      .catch(() => alert("not supported"));
   } else {
-    document.write("device can't show heading");
+    window.addEventListener("deviceorientationabsolute", handler, true);
   }
 }
 
-window.addEventListener("deviceorientation", (e) => {
-    onHeadingChange(e)
-});
+function handler(e) {
+  compass = e.webkitCompassHeading || Math.abs(e.alpha - 360);
+  // compassCircle.style.transform = `translate(-50%, -50%) rotate(${-compass}deg)`;
+  document.querySelector(".coords-heading").innerText=compass;
+}
+
+init();
