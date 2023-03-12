@@ -1,0 +1,29 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #000;
+}
+.coords-heading, .speed{
+    color: #fff;
+}
+#img{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background-image: url("./compass.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#arrow{
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    top: 50%;
+    bottom: 50%;
+    transform: translate(-50%,-50%) scaleY(1.25);
+    transform-origin: center;
+}

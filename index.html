@@ -8,11 +8,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p class="orientation"></p>
-    <p class="phase"></p>
-    <p class="alpha"></p>
-    <p class="beta"></p>
-    <p class="gamma"></p>
-    <script src="script.js"></script>
+    <div class="texts">
+        <p class="orientation"></p>
+        <p class="phase"></p>
+        <p class="alpha"></p>
+        <p class="beta"></p>
+        <p class="gamma"></p>
+        <p class="coords-heading"></p>
+        <p class="speed"></p>
+    </div>
+    <div id="img">
+        <img id="arrow" src="./arrow.svg">
+    </div>
+
+    <script>
+        navigator.geolocation.watchPosition(data=>{
+            document.querySelector(".coords-heading").innerText=data.coords.heading;
+            document.querySelector(".speed").innerText=data.coords.speed;
+        })
+    </script>
+    <!-- <script src="script.js"></script> -->
 </body>
 </html>
