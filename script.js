@@ -37,23 +37,14 @@ const isIOS = !(
 );
 
 function init() {
-  document.querySelector("button").addEventListener("click", startCompass);
+  document.querySelector(".btn").addEventListener("click", startCompass);
 }
 
 function startCompass() {
-  if (isIOS) {
-    DeviceOrientationEvent.requestPermission()
-      .then((response) => {
-        if (response === "granted") {
-          window.addEventListener("deviceorientation", handler, true);
-        } else {
-          alert("has to be allowed!");
-        }
-      })
-      .catch(() => alert("not supported"));
-  } else {
-    window.addEventListener("deviceorientationabsolute", handler, true);
-  }
+  console.log("aaa");
+
+  window.addEventListener("deviceorientation", handler, true);
+  document.querySelector(".speed").innerText="Rubek";
 }
 
 function handler(e) {

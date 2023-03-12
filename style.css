@@ -8,6 +8,7 @@ body{
 }
 .coords-heading, .speed{
     color: #fff;
+    font-size: 2rem;
 }
 #img{
     position: relative;
@@ -26,4 +27,9 @@ body{
     bottom: 50%;
     transform: translate(-50%,-50%) scaleY(1.25);
     transform-origin: center;
+}
+.btn{
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    cursor: pointer;
 }
